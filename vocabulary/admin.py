@@ -1,6 +1,8 @@
 from django.contrib import admin
 from vocabulary.models import Vocabulary,Type
 
+
+
 class TypeAdmin(admin.ModelAdmin):
     list_display=('id','name',)
     search_fields=('name',)
@@ -12,4 +14,5 @@ class VocabularyAdmin(admin.ModelAdmin):
 
 admin.site.register(Vocabulary,VocabularyAdmin)
 admin.site.register(Type,TypeAdmin)
+
 
