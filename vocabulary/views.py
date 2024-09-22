@@ -1,3 +1,8 @@
 from django.shortcuts import render
 
-# Create your views here.
+def vocabulary_view(request):
+    return render(
+        request,
+        'vocabulary.html',
+        {'vocabulary':{'word':'Take'}}
+    )
