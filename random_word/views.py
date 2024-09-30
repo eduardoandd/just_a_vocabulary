@@ -20,6 +20,10 @@ def random_view(request):
             if translation == correct_translation:
                 message='success'
                 random_word_data= Vocabulary.objects.order_by('?').values_list('word','translation').first()
+
+                while random_word_data[1] == translation:
+                    random_word_data= Vocabulary.objects.order_by('?').values_list('word','translation').first()
+                    
                 request.session['random_word'] = random_word_data[0]
                 request.session['correct_translation'] = random_word_data[1]
                 lista.append(request.session['random_word'])
