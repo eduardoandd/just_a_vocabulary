@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random</title>
+</head>
+
+        {% block content %}
+
+            <style>
+                .card-random{
+                    text-align: center;
+                }
+            </style>
+
+            <div class="card-random">
+                <div class="word">
+                    <h2>What's the meaning of the word?</h2>
+                    <h1>{{random_word}}</h1>
+                </div>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="text" name="translation" id="id_translation">
+                    <input type="submit" value="Submit">
+                </form>
+
+                {% if message %}
+                    <p>{{ message }}</p>
+                {% endif %}
+            </div>
+        {% endblock %}
+        
+   
+</html>

@@ -18,9 +18,13 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from vocabulary.views import *
+from random_word.views import *
+from accounts.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('vocabulary/', vocabulary_view),
+    path('random/', random_view, name='random_form'),
+    path('new_word/', new_word_view, name='new_word'),
+    path('register/', register_view, name='register'),
+    path('login/', login_view, name='register'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
