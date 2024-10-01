@@ -1,6 +1,9 @@
 from django.shortcuts import render,redirect
 from random_word.models import Vocabulary
-from random_word.forms import NewWordModelForm
+from random_word.forms import WordModelForm
+from django.views.generic import CreateView,UpdateView,DetailView,DeleteView
+from django.urls import reverse_lazy
+
 
 
 
@@ -57,18 +60,27 @@ def random_word_generate():
     random_word_data= Vocabulary.objects.order_by('?').values_list('word','translation').first()
     
     return random_word_data
+         
+class WordCreateView(CreateView):
+    model=Vocabulary
+    form_class= WordModelForm
+    template_name='new_word.html'
+    success_url='/random/'
+
+class WordUpdateView(UpdateView):
+    model=Vocabulary
+    form_class= WordModelForm
+    template_name='vocabulary_update.html'
     
-def new_word_view(request):
+    def get_success_url(self) -> str:
+        return reverse_lazy('word_detail', kwargs= {'pk': self.object.pk})
     
-    if request.method == 'POST':
+class WordDetailView(DetailView):
+    model=Vocabulary
+    template_name='word_detail.html'
+    
+class WordDeleteView(DeleteView):
+    model=Vocabulary
+    template_name='word_delete.html'
+    success_url='/random'
         
-        new_word_form= NewWordModelForm(request.POST)
-        
-        if new_word_form.is_valid():
-            new_word_form.save()
-            return redirect('random_form')
-    else:
-        new_word_form=NewWordModelForm()
-        
-    return render(request, 'new_word.html', {'new_word_form': new_word_form})
-            
