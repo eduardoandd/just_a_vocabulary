@@ -16,12 +16,12 @@ def random_view(request):
             correct_translation= request.session['correct_translation']
             random_word= request.session['random_word']
             
-            if translation == correct_translation:
+            if translation.lower() == correct_translation.lower():
                 message='success'
                 random_word= random_word_generate()
 
-                while random_word[1] == translation:
-                    random_word
+                while random_word[1].lower() == translation.lower():
+                    random_word= random_word_generate()
                     
                 get_session(random_word,request)
                 lista.append(request.session['random_word'])
