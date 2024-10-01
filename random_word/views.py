@@ -11,7 +11,6 @@ def random_view(request):
     
     if 'random_word' in request.session: 
         if request.method == "POST":
-            print(request.session.items())
             
             translation= request.POST['translation']
             correct_translation= request.session['correct_translation']
@@ -19,33 +18,27 @@ def random_view(request):
             
             if translation == correct_translation:
                 message='success'
-                random_word_data= Vocabulary.objects.order_by('?').values_list('word','translation').first()
+                random_word= random_word_generate()
 
-                while random_word_data[1] == translation:
-                    random_word_data= Vocabulary.objects.order_by('?').values_list('word','translation').first()
+                while random_word[1] == translation:
+                    random_word
                     
-                request.session['random_word'] = random_word_data[0]
-                request.session['correct_translation'] = random_word_data[1]
+                get_session(random_word,request)
                 lista.append(request.session['random_word'])
                 
             else:
                 message='fail'
                 lista.append(request.session['random_word'])
-                
-                  
+                        
         else:
-            random_word_data= Vocabulary.objects.order_by('?').values_list('word','translation').first()
-            request.session['random_word'] = random_word_data[0]
-            request.session['correct_translation'] = random_word_data[1]
-            lista.append(request.session['random_word'])
-            
+            random_word= random_word_generate()
+            get_session(random_word,request)
+            lista.append(request.session['random_word'])         
     else:    
-        random_word_data= Vocabulary.objects.order_by('?').values_list('word','translation').first()
-        request.session['random_word'] = random_word_data[0]
-        request.session['correct_translation'] = random_word_data[1]
+        random_word= random_word_generate()
+        get_session(random_word,request)
         lista.append(request.session['random_word'])
         
-    
     random_word=lista[0]
     lista=[]
             
@@ -54,6 +47,16 @@ def random_view(request):
         'random.html',
         {'random_word': random_word, 'message': message} 
     )
+    
+def get_session(random_word,request):
+     
+    request.session['random_word'] = random_word[0]
+    request.session['correct_translation'] = random_word[1]
+    
+def random_word_generate():
+    random_word_data= Vocabulary.objects.order_by('?').values_list('word','translation').first()
+    
+    return random_word_data
     
 def new_word_view(request):
     
