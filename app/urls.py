@@ -27,6 +27,7 @@ urlpatterns = [
     path('new_word/', WordCreateView.as_view(), name='new_word'),
     path('register/', register_view, name='register'),
     path('login/', login_view, name='login'),
+    path('logout/', logout_view, name='logout'),
     path('word/<int:pk>/vocabulary_update', WordUpdateView.as_view(), name='vocabulary_update'),
     path('word/<int:pk>/word_delete', WordDeleteView.as_view(), name='word_delete'),
     path('word/<int:pk>/', WordDetailView.as_view(), name='word_detail'),

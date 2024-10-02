@@ -3,7 +3,8 @@ from random_word.models import Vocabulary
 from random_word.forms import WordModelForm
 from django.views.generic import CreateView,UpdateView,DetailView,DeleteView
 from django.urls import reverse_lazy
-
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 
 
@@ -76,13 +77,15 @@ def random_word_generate():
     random_word_data= Vocabulary.objects.order_by('?').values_list('word','translation','id').first()
     
     return random_word_data
-         
+
+@method_decorator(login_required(login_url='login'), name='dispatch')                 
 class WordCreateView(CreateView):
     model=Vocabulary
     form_class= WordModelForm
     template_name='new_word.html'
     success_url='/random/'
 
+@method_decorator(login_required(login_url='login'), name='dispatch')         
 class WordUpdateView(UpdateView):
     model=Vocabulary
     form_class= WordModelForm
@@ -90,11 +93,13 @@ class WordUpdateView(UpdateView):
     
     def get_success_url(self) -> str:
         return reverse_lazy('word_detail', kwargs= {'pk': self.object.pk})
-    
+
+@method_decorator(login_required(login_url='login'), name='dispatch')         
 class WordDetailView(DetailView):
     model=Vocabulary
     template_name='word_detail.html'
-    
+
+@method_decorator(login_required(login_url='login'), name='dispatch')         
 class WordDeleteView(DeleteView):
     model=Vocabulary
     template_name='word_delete.html'
