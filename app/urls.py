@@ -29,5 +29,5 @@ urlpatterns = [
     path('login/', login_view, name='login'),
     path('word/<int:pk>/vocabulary_update', WordUpdateView.as_view(), name='vocabulary_update'),
     path('word/<int:pk>/word_delete', WordDeleteView.as_view(), name='word_delete'),
-    path('word/<int:pk>/detail', WordDetailView.as_view(), name='word_detail'),
+    path('word/<int:pk>/', WordDetailView.as_view(), name='word_detail'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

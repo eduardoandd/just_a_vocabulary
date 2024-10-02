@@ -28,36 +28,52 @@ def random_view(request):
                     
                 get_session(random_word,request)
                 lista.append(request.session['random_word'])
+                lista.append(request.session['id'])
+                lista.append(request.session['correct_translation'])
+                
                 
             else:
                 message='fail'
                 lista.append(request.session['random_word'])
-                        
+                lista.append(request.session['id'])
+                lista.append(request.session['correct_translation'])
+                
+                    
         else:
             random_word= random_word_generate()
             get_session(random_word,request)
-            lista.append(request.session['random_word'])         
+            lista.append(request.session['random_word'])
+            lista.append(request.session['id'])
+            lista.append(request.session['correct_translation'])
+            
+                     
     else:    
         random_word= random_word_generate()
         get_session(random_word,request)
         lista.append(request.session['random_word'])
+        lista.append(request.session['id'])
+        lista.append(request.session['correct_translation'])
+        
         
     random_word=lista[0]
+    id=lista[1]
+    translation=lista[2]    
     lista=[]
             
     return render(
         request,
         'random.html',
-        {'random_word': random_word, 'message': message} 
+        {'random_word': random_word, 'message': message, 'id':id,'translation':translation} 
     )
     
 def get_session(random_word,request):
      
     request.session['random_word'] = random_word[0]
     request.session['correct_translation'] = random_word[1]
+    request.session['id']=random_word[2]
     
 def random_word_generate():
-    random_word_data= Vocabulary.objects.order_by('?').values_list('word','translation').first()
+    random_word_data= Vocabulary.objects.order_by('?').values_list('word','translation','id').first()
     
     return random_word_data
          

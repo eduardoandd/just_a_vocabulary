@@ -17,7 +17,7 @@
             <div class="card-random">
                 <div class="word">
                     <h2>What's the meaning of the word?</h2>
-                    <h1>{{random_word}}</h1>
+                    <h1><a href="{% url 'word_detail' id %}">{{random_word}}</a></h1>
                 </div>
 
                 <form method="post">
