@@ -1,1 +1,3 @@
 Fazer uma página detail dando os principais significados da word selecionada e exibir uma foto com a dica.
+Fazer uma tabela que armazena dados dos acertos e erros no banco de dados, para depois poder criar um gráfico (utilizando signals)
+Fazer um teste, criar uma tabela auxiliar ou construir minha lógica.
