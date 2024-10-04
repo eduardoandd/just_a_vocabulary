@@ -1,28 +1,12 @@
-<!doctype html>
-<html lang="en">
-  <head>
-   
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+{% block content %}
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-    <title>Register</title>
-  </head>
-  <body>
-    <form method="post" >
+    <form method="post">
         {% csrf_token %}
-        <div style="text-align: center;" class="container">
-            <h1>Register</h1>
-            <label for="">Username</label>
-            <input class="form-control-sm" type="text" name="username">
-            <label for="">Pasword</label>
-            <input class="form-control-sm" type="password" name="password">
-            <button class="form-control-sm">Enviar</button>
-        </div>
-    </form>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <table>
+          {{register_form.as_table}}
 
-  </body>
-</html>
+        </table>
+        <input type="submit" value="Register" class="btn btn-primary">
+    </form>
+
+{% endblock %}
